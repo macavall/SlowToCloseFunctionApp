@@ -22,16 +22,6 @@ namespace SlowToClose
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
-            //string executablePath = @"deadlock.exe";
-
-            //// Create process start info
-            //ProcessStartInfo startInfo = new ProcessStartInfo();
-            //startInfo.FileName = executablePath;
-
-            // Optionally, you can set other properties of startInfo like arguments, working directory, etc.
-
-            // Create and start the child process
-
             _ =Task.Factory.StartNew(() =>
             {
                 Thread thread1 = new Thread(Method1);
@@ -44,19 +34,7 @@ namespace SlowToClose
                 thread2.Join();
             });
 
-            // Get the current process
-            Process currentProcess = Process.GetCurrentProcess();
-
-            // Get the process ID
-            int processId = currentProcess.Id;
-
-            // Convert process ID to string
-            string processIdString = processId.ToString();
-
-            // Output process ID as string
-            Console.WriteLine("Current Process ID: " + processIdString);
-
-            return new OkObjectResult($"Welcome to Azure Functions! {processIdString}");
+            return new OkObjectResult($"Welcome to Azure Functions! {GetThisProcessId()}");
         }
 
         static void Method1()
@@ -71,6 +49,20 @@ namespace SlowToClose
                     Console.WriteLine("Thread 1 acquired lock2.");
                 }
             }
+        }
+
+        static string GetThisProcessId()
+        {
+            // Get the current process
+            Process currentProcess = Process.GetCurrentProcess();
+
+            // Get the process ID
+            int processId = currentProcess.Id;
+
+            // Convert process ID to string
+            string processIdString = processId.ToString();
+
+            return processIdString;
         }
 
         static void Method2()
