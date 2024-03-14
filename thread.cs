@@ -36,7 +36,7 @@ namespace SlowToClose
             int threadNumber = (int)obj;
             Console.WriteLine($"Thread {threadNumber} started.");
 
-            Thread.Sleep(120000);
+            Thread.Sleep(300000);
             // Implement your thread logic here
         }
     }
