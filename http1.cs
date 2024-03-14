@@ -20,6 +20,8 @@ namespace SlowToClose
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
+
+
             string executablePath = @"deadlock.exe";
 
             // Create process start info
@@ -42,7 +44,19 @@ namespace SlowToClose
                 }
             });
 
-            return new OkObjectResult("Welcome to Azure Functions!");
+            // Get the current process
+            Process currentProcess = Process.GetCurrentProcess();
+
+            // Get the process ID
+            int processId = currentProcess.Id;
+
+            // Convert process ID to string
+            string processIdString = processId.ToString();
+
+            // Output process ID as string
+            Console.WriteLine("Current Process ID: " + processIdString);
+
+            return new OkObjectResult($"Welcome to Azure Functions! {processIdString}");
         }
     }
 }
