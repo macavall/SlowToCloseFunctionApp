@@ -21,7 +21,7 @@ namespace SlowToClose
 
             Task.Factory.StartNew(() =>
             {
-                for (int i = 0; i < 50; i++)
+                for (int i = 0; i < 600; i++)
                 {
                     Thread thread = new Thread(ThreadMethod);
                     thread.Start(i); // Pass some parameter if needed
@@ -36,7 +36,7 @@ namespace SlowToClose
             int threadNumber = (int)obj;
             Console.WriteLine($"Thread {threadNumber} started.");
 
-            Thread.Sleep(60000);
+            Thread.Sleep(120000);
             // Implement your thread logic here
         }
     }
